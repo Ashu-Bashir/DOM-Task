@@ -108,6 +108,7 @@ submitBtn.addEventListener("click" , async (e)=>{
                     editBtn.addEventListener("click" , (e)=>{
                         const saveBtn = document.querySelector("#saveBtn");
                         e.preventDefault();
+                        publishPostBtn.hidden= true;
                         titleInput.value = data.title;
                         bodyInput.value = data.body;
                         publishPostInputs.hidden = false;
@@ -137,6 +138,7 @@ submitBtn.addEventListener("click" , async (e)=>{
                                 titleHeading.innerHTML = `The Title is <i><b>${updatedData.title}</b></i>`;
                                 saveBtn.hidden= true;
                                 publishPostInputs.hidden = true;
+                                publishPostBtn.hidden= false;
                                 data.title = updatedData.title;
                                 data.body= updatedData.body;
                                 saveBtn.disabled = false
