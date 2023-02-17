@@ -6,35 +6,36 @@ const bodyInput = document.querySelector("#body");
 const heading = document.querySelector("#headingResult");
 const viewPostList = document.querySelector("#viewPostList");
 const titleHeading = document.querySelector("#titleHeading");
-// const submitBtn = document.querySelector("#submitPost");
-// const editBtn = document.querySelector("#editBtn");
-// const deleteBtn = document.querySelector("#deleteBtn");
-// const saveBtn = document.querySelector("#saveBtn");
-
-
 
 const hidePostMessage = () => {
     setTimeout(() => {
       heading.innerHTML =`<h4><i>You can view the request by clicking View Post</i></h4>`;
       viewPostBtn.disabled= false;
-
     }, 3000); 
   }
+
+//   viewPostBtn.disabled= true;
+viewPostBtn.addEventListener("click" , ()=>{
+        heading.innerHTML =`<h4><i>Please Add The Log By Clicking Publish Button</i></h4>`;  
+        viewPostBtn.disabled= true;
+        setTimeout(() => {
+            heading.innerHTML = ""
+        }, 3000);
+});
 
 publishPostBtn.addEventListener("click" , (e)=>{
     e.preventDefault();
     publishPostInputs.hidden = false;
     const submitBtn = document.querySelector("#submitPost");
 
-
-submitBtn.addEventListener("click" , async (e)=>{
-    e.preventDefault();
-    if (titleInput.value === "" && bodyInput.value === "") {
-        heading.innerHTML = "Please enter the credentials"
-        return    
-    }
-
-    try {
+   submitBtn.addEventListener("click" , async (e)=>{
+        e.preventDefault();
+        publishPostBtn.disabled =  true;
+        if (titleInput.value === "" && bodyInput.value === "") {
+            heading.innerHTML = "Please enter the credentials"
+            return    
+        }
+        try {
         submitBtn.disabled= true;
         const response = await fetch('https://jsonplaceholder.typicode.com/posts' , {
             method: "POST", 
@@ -58,8 +59,7 @@ submitBtn.addEventListener("click" , async (e)=>{
 
           // ADDING VIEW POST BUTTON
            viewPostBtn.addEventListener("click" , (e)=>{
-               e.preventDefault();
-               
+              e.preventDefault();
               viewPostList.hidden = false;
               heading.innerHTML= "" 
               titleHeading.innerHTML = `The Title is <i><b>${data.title}</b></i>`
@@ -73,10 +73,8 @@ submitBtn.addEventListener("click" , async (e)=>{
                         heading.innerHTML = "";
                         }, 3000); 
                     }
-
                     deleteBtn.addEventListener("click", async (e) => {
-                        e.preventDefault();
-                    
+                        e.preventDefault();                
                         try {
                             deleteBtn.disabled = true;
                         const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${data.id}`,{
@@ -85,15 +83,15 @@ submitBtn.addEventListener("click" , async (e)=>{
                         );
                     
                         if (response.ok) {
-                            heading.innerHTML = "The log is Deleted";
+                            heading.innerHTML =`<h4><i>The Log Is Deleted.</i></h4>`;
                             viewPostList.hidden = true;
-                            viewPostBtn.disabled = true;
                             submitBtn.disabled= false;
                             titleInput.value= "";
                             bodyInput.value = "";
                             hideDeleteMessage();
                             deleteBtn.disabled = false;
                             viewPostBtn.hidden = false;
+                            publishPostBtn.disabled= false
                             submitBtn.hidden = false
 
 
@@ -108,17 +106,18 @@ submitBtn.addEventListener("click" , async (e)=>{
                     editBtn.addEventListener("click" , (e)=>{
                         const saveBtn = document.querySelector("#saveBtn");
                         e.preventDefault();
-                        publishPostBtn.hidden= true;
+                        publishPostBtn.hidden= false;
                         titleInput.value = data.title;
                         bodyInput.value = data.body;
                         publishPostInputs.hidden = false;
                         submitBtn.hidden = true;
-                        viewPostBtn.hidden = true;
+                        viewPostBtn.hidden = false;
+                        viewPostBtn.disabled= true;
                         viewPostList.hidden = true;
                         saveBtn.hidden = false;
                         saveBtn.disabled= false;
 
-
+                    });
                         saveBtn.addEventListener("click" , async(e)=>{
                             e.preventDefault();
                             try {
@@ -146,9 +145,7 @@ submitBtn.addEventListener("click" , async (e)=>{
                             } catch (error) {
                                 console.error(error);
                             }
-                        });
-                    });
-            
+                        });            
         
     } 
     catch (error) {
