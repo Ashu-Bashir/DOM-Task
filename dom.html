@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DOM Manipulation Task</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <button id="publishPost">Publish Post</button>
     <button id="viewPost">View Post</button>
 
-   
-   <div id="publishPostInputs" hidden> <br> <br>
-    <label for="title" >Title:</label>
-    <input type="text" id="title" placeholder="Enter post title"> <br> <br>
-    <label for="body" >Body:</label>
-    <input id="body" placeholder="Enter post body"></input><br> <br>
-    <button id="submitPost" >Publish</button>
-   </div>
+    
+    <div id="publishPostInputs" hidden><br/> <br/>
+        <div id="titleDiv">
+            <label for="title">Title:</label>
+            <input type="text" id="title" placeholder="Enter post title"/> <br/><br/>
+        </div>
+        
+        <div id="bodyDiv" hidden>
+            <label for="body">Body:</label>
+            <input type="text" id="body" placeholder="Enter post body"/><br/><br/>
+        </div>
+        <button id="toggleInputsBtn" hidden>Toggle to Enter Other Input</button><br/><br/>
+      <button id="submitPost">Publish</button>
+    </div>
 
     <p id="headingResult"></p>
 
-
-
     <div id="viewPostList" hidden>
-        <p id="titleHeading"></p>
-        <button id="editBtn">Edit</button>
-        <button id="deleteBtn">Delete</button>
-
+      <p id="titleHeading"></p>
+      <button id="editBtn">Edit</button>
+      <button id="deleteBtn">Delete</button>
     </div>
 
     <button id="saveBtn" hidden>Save</button>
-   
-    
+
     <script src="dom.js"></script>
-</body>
+  </body>
 </html>

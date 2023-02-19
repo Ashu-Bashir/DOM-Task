@@ -9,6 +9,10 @@ const titleHeading = document.querySelector("#titleHeading");
 const editBtn = document.querySelector("#editBtn");
 const deleteBtn = document.querySelector("#deleteBtn");
 const submitBtn = document.querySelector("#submitPost");
+const toggleInputsBtn = document.getElementById("toggleInputsBtn");
+const titleDiv = document.querySelector("#titleDiv");
+const bodyDiv = document.querySelector("#bodyDiv");
+
 let data;
 
 const hidePostMessage = () => {
@@ -30,7 +34,19 @@ viewPostBtn.addEventListener("click" , ()=>{
 publishPostBtn.addEventListener("click" , (e)=>{
     e.preventDefault();
     publishPostInputs.hidden = false;
+    toggleInputsBtn.hidden = false
 });
+
+toggleInputsBtn.addEventListener("click", () => {
+
+        if (titleDiv.hidden === false) {
+            titleDiv.hidden = true;
+            bodyDiv.hidden = false;
+        } else {
+            titleDiv.hidden = false;
+            bodyDiv.hidden = true;
+        }
+  });
 
    // ADDING SUBMIT BTN EVENT LISTENER
     submitBtn.addEventListener("click" , async (e)=>{
@@ -57,6 +73,7 @@ publishPostBtn.addEventListener("click" , (e)=>{
           }
           data = await response.json();
           heading.innerHTML = `<h4><i>Request was successful</i></h4>`
+          toggleInputsBtn.disabled = true;
           publishPostInputs.hidden = true;
           viewPostBtn.disabled = true 
           hidePostMessage();        
@@ -123,6 +140,8 @@ publishPostBtn.addEventListener("click" , (e)=>{
               viewPostList.hidden = true;
               saveBtn.hidden = false;
               saveBtn.disabled= false;
+              toggleInputsBtn.disabled = false
+
 
           });
 
